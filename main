@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bruno Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1e1e1e;
+      color: white;
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    .box {
+      background: #2c2c2c;
+      padding: 20px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+
+    input {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    #main {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="login" class="box">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Username"><br>
+  <input type="password" id="password" placeholder="Password"><br>
+  <button onclick="login()">Login</button>
+  <p id="error" style="color:red;"></p>
+</div>
+
+<div id="main" class="box">
+  <h2 id="datetime"></h2>
+
+  <h3>Settings</h3>
+  <input type="text" id="color" placeholder="#hexcode">
+  <button onclick="changeColor()">Change Background</button>
+</div>
+
+<script>
+function login() {
+  let user = document.getElementById("username").value;
+  let pass = document.getElementById("password").value;
+
+  if (user === "bruno" && pass === "bruno") {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("main").style.display = "block";
+    startClock();
+  } else {
+    document.getElementById("error").innerText = "Wrong username or password";
+  }
+}
+
+function startClock() {
+  setInterval(() => {
+    let now = new Date();
+
+    // Convert to CET/CEST
+    let options = {
+      timeZone: "Europe/Warsaw",
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    };
+
+    let formatted = new Intl.DateTimeFormat('en-GB', options).format(now);
+    document.getElementById("datetime").innerText = "Today is " + formatted;
+  }, 1000);
+}
+
+function changeColor() {
+  let color = document.getElementById("color").value;
+  document.body.style.backgroundColor = color;
+}
+</script>
+
+</body>
+</html>
